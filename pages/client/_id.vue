@@ -16,6 +16,15 @@
       placeholder="Numéro de téléphone"
     />
     <input v-model="customer.email" type="text" placeholder="e-mail" />
+    <button type="button" @click="updateCustomer">Modifier</button>
+    <button type="button" @click="delConfirmationOpened = true">
+      Supprimer la fiche
+    </button>
+    <div v-if="delConfirmationOpened" class="confirmation-container">
+      <p>Voulez-vous vraiment supprimer cette fiche ?</p>
+      <button type="button" @click="delConfirmationOpened = false">Non</button>
+      <button type="button" @click="deleteCustomer">Oui</button>
+    </div>
   </div>
 </template>
 
@@ -26,6 +35,7 @@ export default {
   data() {
     return {
       customer: {},
+      delConfirmationOpened: false,
     }
   },
 
@@ -33,6 +43,21 @@ export default {
     this.customer = await ApiService.getOne(this.$route.params.id).then(
       (response) => response.data.result
     )
+  },
+
+  methods: {
+    async updateCustomer() {
+      await ApiService.update(this.$route.params.id, this.customer).then(
+        (response) => response
+      )
+    },
+
+    async deleteCustomer() {
+      await ApiService.delete(this.$route.params.id).then(
+        (response) => response
+      )
+      this.$router.push('/')
+    },
   },
 }
 </script>
