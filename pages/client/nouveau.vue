@@ -3,13 +3,10 @@
     <h1>Création d'une fiche client</h1>
     <input v-model="customer.firstName" type="text" placeholder="Prénom" />
     <input v-model="customer.lastName" type="text" placeholder="Nom" />
-    <client-only>
-      <date-picker
-        v-model="customer.birthdate"
-        placeholder="Date de naissance (jj/mm/aaaa)"
-        format="dd/MM/yyyy"
-      />
-    </client-only>
+    <input
+      v-model="customer.birthdate"
+      placeholder="Date de naissance (jj/mm/aaaa)"
+    />
     <input
       v-model="customer.telNum"
       type="text"
@@ -32,9 +29,9 @@ export default {
 
   methods: {
     async createCustomer() {
-      const res = await ApiService.create(this.customer).then(
-        (response) => response
-      )
+      const datas = { ...this.customer }
+      datas.birthdate = datas.birthdate.split('/').reverse().join('-')
+      const res = await ApiService.create(datas).then((response) => response)
       if (res.status === 201) {
         this.$router.push('/')
       }

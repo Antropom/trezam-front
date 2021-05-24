@@ -3,13 +3,10 @@
     <h1>Modifier la fiche client</h1>
     <input v-model="customer.firstName" type="text" placeholder="Prénom" />
     <input v-model="customer.lastName" type="text" placeholder="Nom" />
-    <client-only>
-      <date-picker
-        v-model="customer.birthdate"
-        placeholder="Date de naissance (jj/mm/aaaa)"
-        format="dd/MM/yyyy"
-      />
-    </client-only>
+    <input
+      v-model="customer.birthdate"
+      placeholder="Date de naissance (jj/mm/aaaa)"
+    />
     <input
       v-model="customer.telNum"
       type="text"
@@ -47,14 +44,18 @@ export default {
     this.customer = await ApiService.getOne(this.$route.params.id).then(
       (response) => response.data.result
     )
+    this.customer.birthdate = Intl.DateTimeFormat('fr-FR').format(
+      new Date(this.customer.birthdate)
+    )
   },
 
   methods: {
     async updateCustomer() {
-      const res = await ApiService.update(
-        this.$route.params.id,
-        this.customer
-      ).then((response) => response)
+      const datas = { ...this.customer }
+      datas.birthdate = datas.birthdate.split('/').reverse().join('-')
+      const res = await ApiService.update(this.$route.params.id, datas).then(
+        (response) => response
+      )
       if (res.status === 201) {
         this.updated = true
         setInterval(() => (this.updated = false), 3000)
