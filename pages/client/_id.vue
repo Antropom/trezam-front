@@ -3,11 +3,13 @@
     <h1>Modifier la fiche client</h1>
     <input v-model="customer.firstName" type="text" placeholder="Prénom" />
     <input v-model="customer.lastName" type="text" placeholder="Nom" />
-    <input
-      v-model="customer.birthdate"
-      type="text"
-      placeholder="Date de naissance"
-    />
+    <client-only>
+      <date-picker
+        v-model="customer.birthdate"
+        placeholder="Date de naissance (jj/mm/aaaa)"
+        format="dd/MM/yyyy"
+      />
+    </client-only>
     <input
       v-model="customer.telNum"
       type="text"
