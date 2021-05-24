@@ -12,12 +12,17 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="customer in customers" :key="customer.id">
+        <tr v-for="customer in customers" :key="customer._id">
           <th>{{ customer.lastName }}</th>
           <th>{{ customer.firstName }}</th>
           <th>{{ customer.birthdate | formatDate }}</th>
           <th>{{ customer.telNum }}</th>
           <th>{{ customer.email }}</th>
+          <th>
+            <nuxt-link :to="`client/${customer._id}`"
+              >Modifier la fiche</nuxt-link
+            >
+          </th>
         </tr>
       </tbody>
     </table>
@@ -39,7 +44,7 @@ export default {
 
   computed: {
     ...mapState({
-      customers: (state) => state.customers.customers,
+      customers: (state) => state.customers.customersList,
     }),
   },
 }
