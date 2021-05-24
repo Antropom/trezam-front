@@ -26,7 +26,6 @@
         </tr>
       </tbody>
     </table>
-    <nuxt-link to="client/nouveau">Ajouter un client</nuxt-link>
   </div>
 </template>
 
