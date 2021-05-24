@@ -17,11 +17,11 @@ export default {
   getOne(id) {
     return apiClient.get(`customers/${id}`)
   },
-  create(id) {
-    return apiClient.post(`customers`)
+  create(datas) {
+    return apiClient.post(`customers`, datas)
   },
-  update(id) {
-    return apiClient.put(`customers/${id}`)
+  update(id, datas) {
+    return apiClient.put(`customers/${id}`, datas)
   },
   delete(id) {
     return apiClient.delete(`customers/${id}`)
