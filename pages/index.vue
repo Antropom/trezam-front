@@ -1,63 +1,46 @@
 <template>
   <div class="container">
-    <div>
-      <Logo />
-      <h1 class="title">trezam-front</h1>
-      <div class="links">
-        <a
-          href="https://nuxtjs.org/"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="button--green"
-        >
-          Documentation
-        </a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="button--grey"
-        >
-          GitHub
-        </a>
-      </div>
-    </div>
+    <h1>Liste des clients</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>Nom</th>
+          <th>Prénom</th>
+          <th>Date de naissance</th>
+          <th>Numéro de téléphone</th>
+          <th>e-mail</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="customer in customers" :key="customer.id">
+          <th>{{ customer.lastName }}</th>
+          <th>{{ customer.firstName }}</th>
+          <th>{{ customer.birthdate | formatDate }}</th>
+          <th>{{ customer.telNum }}</th>
+          <th>{{ customer.email }}</th>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </template>
 
 <script>
-export default {}
+import { mapState } from 'vuex'
+
+export default {
+  filters: {
+    formatDate: (dateStr) =>
+      Intl.DateTimeFormat('fr-FR').format(new Date(dateStr)),
+  },
+
+  async fetch() {
+    await this.$store.dispatch('customers/fetchAllCustomers')
+  },
+
+  computed: {
+    ...mapState({
+      customers: (state) => state.customers.customers,
+    }),
+  },
+}
 </script>
-
-<style>
-.container {
-  margin: 0 auto;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-
-.title {
-  font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
-    'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  display: block;
-  font-weight: 300;
-  font-size: 100px;
-  color: #35495e;
-  letter-spacing: 1px;
-}
-
-.subtitle {
-  font-weight: 300;
-  font-size: 42px;
-  color: #526488;
-  word-spacing: 5px;
-  padding-bottom: 15px;
-}
-
-.links {
-  padding-top: 15px;
-}
-</style>
