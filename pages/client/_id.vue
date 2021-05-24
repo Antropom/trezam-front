@@ -8,7 +8,6 @@
         v-model="customer.birthdate"
         placeholder="Date de naissance (jj/mm/aaaa)"
         format="dd/MM/yyyy"
-        :language="fr"
       />
     </client-only>
     <input
@@ -21,6 +20,9 @@
     <button type="button" @click="delConfirmationOpened = true">
       Supprimer la fiche
     </button>
+    <div v-if="updated">
+      <p>La fiche a bien été mise à jour</p>
+    </div>
     <div v-if="delConfirmationOpened" class="confirmation-container">
       <p>Voulez-vous vraiment supprimer cette fiche ?</p>
       <button type="button" @click="delConfirmationOpened = false">Non</button>
@@ -31,14 +33,13 @@
 
 <script>
 import ApiService from '@/services/apiService'
-import { fr } from 'vuejs-datepicker/dist/locale'
 
 export default {
   data() {
     return {
       customer: {},
       delConfirmationOpened: false,
-      fr,
+      updated: false,
     }
   },
 
@@ -50,9 +51,14 @@ export default {
 
   methods: {
     async updateCustomer() {
-      await ApiService.update(this.$route.params.id, this.customer).then(
-        (response) => response
-      )
+      const res = await ApiService.update(
+        this.$route.params.id,
+        this.customer
+      ).then((response) => response)
+      if (res.status === 201) {
+        this.updated = true
+        setInterval(() => (this.updated = false), 3000)
+      }
     },
 
     async deleteCustomer() {

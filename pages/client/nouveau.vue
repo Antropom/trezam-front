@@ -8,7 +8,6 @@
         v-model="customer.birthdate"
         placeholder="Date de naissance (jj/mm/aaaa)"
         format="dd/MM/yyyy"
-        :language="fr"
       />
     </client-only>
     <input
@@ -23,13 +22,11 @@
 
 <script>
 import ApiService from '@/services/apiService'
-import { fr } from 'vuejs-datepicker/dist/locale'
 
 export default {
   data() {
     return {
       customer: {},
-      fr,
     }
   },
 
