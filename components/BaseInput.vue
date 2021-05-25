@@ -5,19 +5,16 @@
       type="text"
       :placeholder="placeholder"
       :class="{
-        'error-border': $v.value.$dirty && $v.value.$invalid,
+        'error-border': error,
       }"
-      @blur="$v.value.$touch()"
     />
-    <p v-if="$v.value.$dirty && $v.value.$invalid" class="error">
+    <p v-if="error" class="error">
       {{ errorMessage }}
     </p>
   </div>
 </template>
 
 <script>
-import { required } from 'vuelidate/lib/validators'
-
 export default {
   props: {
     fieldName: {
@@ -32,6 +29,10 @@ export default {
       type: String,
       default: '',
     },
+    error: {
+      type: Boolean,
+      default: false,
+    },
   },
 
   computed: {
@@ -44,10 +45,6 @@ export default {
         this.$store.commit('customers/SET_CURRENT_CUSTOMER_KEY', payload)
       },
     },
-  },
-
-  validations: {
-    value: { required },
   },
 }
 </script>
