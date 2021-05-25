@@ -1,18 +1,84 @@
 <template>
   <div>
     <h1>Modifier la fiche client</h1>
-    <input v-model="customer.firstName" type="text" placeholder="Prénom" />
-    <input v-model="customer.lastName" type="text" placeholder="Nom" />
+    <input
+      v-model="customer.firstName"
+      type="text"
+      placeholder="Prénom"
+      :class="{
+        'error-border':
+          $v.customer.firstName.$dirty && $v.customer.firstName.$invalid,
+      }"
+      @blur="$v.customer.firstName.$touch()"
+    />
+    <p
+      v-if="$v.customer.firstName.$dirty && $v.customer.firstName.$invalid"
+      class="error"
+    >
+      Veuillez saisir un prénom
+    </p>
+    <input
+      v-model="customer.lastName"
+      type="text"
+      placeholder="Nom"
+      :class="{
+        'error-border':
+          $v.customer.lastName.$dirty && $v.customer.lastName.$invalid,
+      }"
+      @blur="$v.customer.lastName.$touch()"
+    />
+    <p
+      v-if="$v.customer.lastName.$dirty && $v.customer.lastName.$invalid"
+      class="error"
+    >
+      Veuillez saisir un nom
+    </p>
     <input
       v-model="customer.birthdate"
       placeholder="Date de naissance (jj/mm/aaaa)"
+      :class="{
+        'error-border':
+          $v.customer.birthdate.$dirty && $v.customer.birthdate.$invalid,
+      }"
+      @blur="$v.customer.birthdate.$touch()"
     />
+    <p
+      v-if="$v.customer.birthdate.$dirty && $v.customer.birthdate.$invalid"
+      class="error"
+    >
+      Veuillez saisir une date de naissance
+    </p>
     <input
       v-model="customer.telNum"
       type="text"
       placeholder="Numéro de téléphone"
+      :class="{
+        'error-border':
+          $v.customer.telNum.$dirty && $v.customer.telNum.$invalid,
+      }"
+      @blur="$v.customer.telNum.$touch()"
     />
-    <input v-model="customer.email" type="text" placeholder="e-mail" />
+    <p
+      v-if="$v.customer.telNum.$dirty && $v.customer.telNum.$invalid"
+      class="error"
+    >
+      Veuillez saisir un numéro de téléphone
+    </p>
+    <input
+      v-model="customer.email"
+      type="text"
+      placeholder="e-mail"
+      :class="{
+        'error-border': $v.customer.email.$dirty && $v.customer.email.$invalid,
+      }"
+      @blur="$v.customer.email.$touch()"
+    />
+    <p
+      v-if="$v.customer.email.$dirty && $v.customer.email.$invalid"
+      class="error"
+    >
+      Veuillez saisir une adresse e-mail
+    </p>
     <button type="button" @click="updateCustomer">Modifier</button>
     <button type="button" @click="delConfirmationOpened = true">
       Supprimer la fiche
@@ -34,6 +100,7 @@ import {
   required,
   minLength,
   maxLength,
+  alpha,
   email,
   helpers,
   numeric,
@@ -64,14 +131,17 @@ export default {
 
   methods: {
     async updateCustomer() {
-      const datas = { ...this.customer }
-      datas.birthdate = datas.birthdate.split('/').reverse().join('-')
-      const res = await ApiService.update(this.$route.params.id, datas).then(
-        (response) => response
-      )
-      if (res.status === 201) {
-        this.updated = true
-        setInterval(() => (this.updated = false), 3000)
+      this.$v.$touch()
+      if (!this.$v.$invalid) {
+        const datas = { ...this.customer }
+        datas.birthdate = datas.birthdate.split('/').reverse().join('-')
+        const res = await ApiService.update(this.$route.params.id, datas).then(
+          (response) => response
+        )
+        if (res.status === 201) {
+          this.updated = true
+          setInterval(() => (this.updated = false), 3000)
+        }
       }
     },
 
@@ -87,10 +157,12 @@ export default {
     customer: {
       firstName: {
         required,
+        alpha,
         minLength: minLength(2),
       },
       lastName: {
         required,
+        alpha,
         minLength: minLength(2),
       },
       birthdate: {
@@ -104,7 +176,7 @@ export default {
         minLength: minLength(10),
         maxLength: maxLength(10),
       },
-      'e-mail': {
+      email: {
         required,
         email,
       },
