@@ -7,14 +7,17 @@
       :class="{
         'error-border': error,
       }"
+      @blur="$v.value.$touch()"
     />
-    <p v-if="error" class="error">
+    <p v-if="error || ($v.value.$invalid && $v.value.$dirty)" class="error">
       {{ errorMessage }}
     </p>
   </div>
 </template>
 
 <script>
+import { required } from 'vuelidate/lib/validators'
+
 export default {
   props: {
     fieldName: {
@@ -44,6 +47,12 @@ export default {
         const payload = { key: this.fieldName, value: val }
         this.$store.commit('customers/SET_CURRENT_CUSTOMER_KEY', payload)
       },
+    },
+  },
+
+  validations: {
+    value: {
+      required,
     },
   },
 }
