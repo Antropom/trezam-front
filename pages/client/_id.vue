@@ -1,132 +1,78 @@
 <template>
   <div>
     <h1>Modifier la fiche client</h1>
-    <input
-      v-model="customer.firstName"
-      type="text"
-      placeholder="Prénom"
-      :class="{
-        'error-border':
-          $v.customer.firstName.$dirty && $v.customer.firstName.$invalid,
-      }"
-      @blur="$v.customer.firstName.$touch()"
+    <BaseInput
+      v-for="(customerField, name, index) in customerFields"
+      :key="index"
+      :field-name="name"
+      :placeholder="customerField.placeholder"
+      :error-message="customerField.errorMessage"
+      :error="
+        $v.customer[name].$dirty && $v.customer[name].$invalid ? true : false
+      "
     />
-    <p
-      v-if="$v.customer.firstName.$dirty && $v.customer.firstName.$invalid"
-      class="error"
-    >
-      Veuillez saisir un prénom
-    </p>
-    <input
-      v-model="customer.lastName"
-      type="text"
-      placeholder="Nom"
-      :class="{
-        'error-border':
-          $v.customer.lastName.$dirty && $v.customer.lastName.$invalid,
-      }"
-      @blur="$v.customer.lastName.$touch()"
-    />
-    <p
-      v-if="$v.customer.lastName.$dirty && $v.customer.lastName.$invalid"
-      class="error"
-    >
-      Veuillez saisir un nom
-    </p>
-    <input
-      v-model="customer.birthdate"
-      placeholder="Date de naissance (jj/mm/aaaa)"
-      :class="{
-        'error-border':
-          $v.customer.birthdate.$dirty && $v.customer.birthdate.$invalid,
-      }"
-      @blur="$v.customer.birthdate.$touch()"
-    />
-    <p
-      v-if="$v.customer.birthdate.$dirty && $v.customer.birthdate.$invalid"
-      class="error"
-    >
-      Veuillez saisir une date de naissance
-    </p>
-    <input
-      v-model="customer.telNum"
-      type="text"
-      placeholder="Numéro de téléphone"
-      :class="{
-        'error-border':
-          $v.customer.telNum.$dirty && $v.customer.telNum.$invalid,
-      }"
-      @blur="$v.customer.telNum.$touch()"
-    />
-    <p
-      v-if="$v.customer.telNum.$dirty && $v.customer.telNum.$invalid"
-      class="error"
-    >
-      Veuillez saisir un numéro de téléphone
-    </p>
-    <input
-      v-model="customer.email"
-      type="text"
-      placeholder="e-mail"
-      :class="{
-        'error-border': $v.customer.email.$dirty && $v.customer.email.$invalid,
-      }"
-      @blur="$v.customer.email.$touch()"
-    />
-    <p
-      v-if="$v.customer.email.$dirty && $v.customer.email.$invalid"
-      class="error"
-    >
-      Veuillez saisir une adresse e-mail
-    </p>
-    <button type="button" @click="updateCustomer">Modifier</button>
-    <button type="button" @click="delConfirmationOpened = true">
+    <button type="button" @click.prevent="updateCustomer">Modifier</button>
+    <button type="button" @click.prevent="delConfirmationOpened = true">
       Supprimer la fiche
     </button>
     <div v-if="updated">
       <p>La fiche a bien été mise à jour</p>
     </div>
-    <div v-if="delConfirmationOpened" class="confirmation-container">
+    <div v-if="delConfirmationOpened" class.prevent="confirmation-container">
       <p>Voulez-vous vraiment supprimer cette fiche ?</p>
-      <button type="button" @click="delConfirmationOpened = false">Non</button>
-      <button type="button" @click="deleteCustomer">Oui</button>
+      <button type="button" @click.prevent="delConfirmationOpened = false">
+        Non
+      </button>
+      <button type="button" @click.prevent="deleteCustomer">Oui</button>
     </div>
   </div>
 </template>
 
 <script>
+import BaseInput from '@/components/BaseInput'
 import ApiService from '@/services/apiService'
-import {
-  required,
-  minLength,
-  maxLength,
-  alpha,
-  email,
-  helpers,
-  numeric,
-} from 'vuelidate/lib/validators'
+import { required, minLength, email, helpers } from 'vuelidate/lib/validators'
+import { mapState } from 'vuex'
 
+// Custom validators for Vuelidate
+// Date validator (must be at the dd/mm/yyyy format and exist)
 const dateValidator = helpers.regex(
   'dateValidator',
   /^(?:(?:31(\/|-|\.)(?:0?[13578]|1[02]))\1|(?:(?:29|30)(\/|-|\.)(?:0?[13-9]|1[0-2])\2))(?:(?:1[6-9]|[2-9]\d)?\d{2})$|^(?:29(\/|-|\.)0?2\3(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\d|2[0-8])(\/|-|\.)(?:(?:0?[1-9])|(?:1[0-2]))\4(?:(?:1[6-9]|[2-9]\d)?\d{2})$/
 )
+// Name validator (only alpha characters including accents)
+const alpha = helpers.regex('alpha', /^[a-zA-ZÀ-ž\s]*$/)
+
+// French phone number valiator
+const phoneNumber = helpers.regex(
+  'phoneNumber',
+  /^(?:(?:\+|00)33|0)\s*[1-9](?:[\s.-]*\d{2}){4}$/
+)
 
 export default {
+  components: {
+    BaseInput,
+  },
+
   data() {
     return {
-      customer: {},
       delConfirmationOpened: false,
       updated: false,
     }
   },
 
   async fetch() {
-    this.customer = await ApiService.getOne(this.$route.params.id).then(
-      (response) => response.data.result
+    await this.$store.dispatch(
+      'customers/fetchCurrentCustomer',
+      this.$route.params.id
     )
-    this.customer.birthdate = Intl.DateTimeFormat('fr-FR').format(
-      new Date(this.customer.birthdate)
-    )
+  },
+
+  computed: {
+    ...mapState({
+      customer: (state) => state.customers.currentCustomer,
+      customerFields: (state) => state.customers.customerFields,
+    }),
   },
 
   methods: {
@@ -172,9 +118,7 @@ export default {
       },
       telNum: {
         required,
-        numeric,
-        minLength: minLength(10),
-        maxLength: maxLength(10),
+        phoneNumber,
       },
       email: {
         required,
