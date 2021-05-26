@@ -84,10 +84,17 @@ export default {
   },
 
   async fetch() {
-    await this.$store.dispatch(
-      'customers/fetchCurrentCustomer',
-      this.$route.params.id
-    )
+    try {
+      await this.$store.dispatch(
+        'customers/fetchCurrentCustomer',
+        this.$route.params.id
+      )
+    } catch (e) {
+      return this.$nuxt.error({
+        statusCode: 404,
+        message: 'Client introuvable',
+      })
+    }
   },
 
   computed: {
