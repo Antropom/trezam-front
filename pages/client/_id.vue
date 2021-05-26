@@ -1,5 +1,10 @@
 <template>
-  <div>
+  <div v-if="$fetchState.error">
+    <p>La fiche de ce client n'existe pas</p>
+    <nuxt-link to="/">Retour à l'accueil</nuxt-link>
+  </div>
+
+  <div v-else>
     <h1>Modifier la fiche client</h1>
     <div class="flex-col">
       <BaseInput
@@ -84,17 +89,10 @@ export default {
   },
 
   async fetch() {
-    try {
-      await this.$store.dispatch(
-        'customers/fetchCurrentCustomer',
-        this.$route.params.id
-      )
-    } catch (e) {
-      return this.$nuxt.error({
-        statusCode: 404,
-        message: 'Client introuvable',
-      })
-    }
+    await this.$store.dispatch(
+      'customers/fetchCurrentCustomer',
+      this.$route.params.id
+    )
   },
 
   computed: {
