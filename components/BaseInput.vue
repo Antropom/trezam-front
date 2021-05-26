@@ -1,11 +1,11 @@
 <template>
-  <div>
+  <div class="flex-col">
     <input
       v-model="value"
       type="text"
       :placeholder="placeholder"
       :class="{
-        'error-border': error,
+        'error-border': error || ($v.value.$invalid && $v.value.$dirty),
       }"
       @blur="$v.value.$touch()"
     />
@@ -58,4 +58,24 @@ export default {
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+input {
+  width: 250px;
+  height: 50px;
+  border: 2px solid #39b982;
+  border-radius: 10px;
+  font-size: 1em;
+  margin: 10px;
+  padding-left: 10px;
+  outline: none;
+}
+
+.error-border {
+  border: 2px solid #d9534f;
+}
+
+p {
+  position: relative;
+  top: -5px;
+}
+</style>

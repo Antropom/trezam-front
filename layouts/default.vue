@@ -26,6 +26,7 @@ body {
   margin: 0;
   font-family: 'Open Sans', sans-serif;
   font-size: 16px;
+  color: #103145;
   line-height: 1.5;
 }
 
@@ -47,5 +48,47 @@ h1 {
   color: #39b982;
   font-weight: 800;
   text-align: center;
+}
+
+.flex-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+button {
+  height: 50px;
+  width: 130px;
+  font-size: 1em;
+  font-weight: 600;
+  background-color: #fff;
+  border: 2px solid #39b982;
+  border-radius: 10px;
+  margin: 10px 0;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #39b982;
+  color: #fff;
+}
+
+.error-btn {
+  border: 2px solid #d9534f;
+}
+
+.error {
+  color: #d9534f;
+  height: 0;
+  margin: -8px auto 8px;
+}
+
+.error-btn {
+  color: #d9534f;
+  cursor: default;
+}
+
+.error-btn:hover {
+  background-color: #d9534f;
 }
 </style>

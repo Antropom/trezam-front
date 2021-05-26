@@ -1,20 +1,28 @@
 <template>
   <div>
     <h1>Modifier la fiche client</h1>
-    <BaseInput
-      v-for="(customerField, name, index) in customerFields"
-      :key="index"
-      :field-name="name"
-      :placeholder="customerField.placeholder"
-      :error-message="customerField.errorMessage"
-      :error="
-        $v.customer[name].$dirty && $v.customer[name].$invalid ? true : false
-      "
-    />
-    <button type="button" @click.prevent="updateCustomer">Modifier</button>
-    <button type="button" @click.prevent="delConfirmationOpened = true">
-      Supprimer la fiche
-    </button>
+    <div class="flex-col">
+      <BaseInput
+        v-for="(customerField, name, index) in customerFields"
+        :key="index"
+        :field-name="name"
+        :placeholder="customerField.placeholder"
+        :error-message="customerField.errorMessage"
+        :error="
+          $v.customer[name].$dirty && $v.customer[name].$invalid ? true : false
+        "
+      />
+      <div class="update-buttons">
+        <button type="button" @click.prevent="updateCustomer">Modifier</button>
+        <button
+          class="error-btn"
+          type="button"
+          @click.prevent="delConfirmationOpened = true"
+        >
+          Supprimer
+        </button>
+      </div>
+    </div>
     <div v-if="updated">
       <p>La fiche a bien été mise à jour</p>
     </div>
@@ -129,4 +137,10 @@ export default {
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+.update-buttons {
+  width: 265px;
+  display: flex;
+  justify-content: space-between;
+}
+</style>
