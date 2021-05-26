@@ -13,36 +13,40 @@
         "
       />
       <div class="update-buttons">
-        <button type="button" @click.prevent="updateCustomer">Modifier</button>
+        <button type="button" @click="updateCustomer">Modifier</button>
         <button
           class="error-btn"
           type="button"
-          @click.prevent="delConfirmationOpened = true"
+          @click="delConfirmationOpened = true"
         >
           Supprimer
         </button>
       </div>
     </div>
-    <div v-if="updated">
-      <p>La fiche a bien été mise à jour</p>
-    </div>
-    <div v-if="delConfirmationOpened" class="confirmation-container">
+    <div
+      v-if="delConfirmationOpened"
+      class="confirmation-container"
+      @click="delConfirmationOpened = false"
+    >
       <div class="confirmation-box">
         <p>Voulez-vous vraiment supprimer cette fiche ?</p>
         <div class="confirmation-btns">
-          <button type="button" @click.prevent="delConfirmationOpened = false">
+          <button type="button" @click="delConfirmationOpened = false">
             Non
           </button>
-          <button
-            type="button"
-            class="error-btn"
-            @click.prevent="deleteCustomer"
-          >
+          <button type="button" class="error-btn" @click="deleteCustomer">
             Oui
           </button>
         </div>
       </div>
     </div>
+    <transition name="drop">
+      <div v-if="updated" class="update-not">
+        <div class="center-container">
+          <p>La fiche a bien été mise à jour</p>
+        </div>
+      </div>
+    </transition>
   </div>
 </template>
 
@@ -188,5 +192,33 @@ export default {
 .confirmation-btns {
   display: flex;
   justify-content: space-between;
+}
+
+.update-not {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+}
+
+.drop-enter-active,
+.drop-leave-active {
+  transition: top 0.5s;
+}
+.drop-enter,
+.drop-leave-to {
+  top: -150px;
+}
+
+.center-container {
+  position: relative;
+  left: -50%;
+  width: 265px;
+  padding: 1px;
+  background-color: #39b982;
+  border-radius: 10px;
+  color: #fff;
+  font-size: 1.1em;
+  font-weight: 600;
+  text-align: center;
 }
 </style>

@@ -24,7 +24,7 @@
   height: 60px;
 }
 
-nav > .nuxt-link-active {
+nav > .nuxt-link-exact-active {
   color: #a88aa3;
 }
 </style>
