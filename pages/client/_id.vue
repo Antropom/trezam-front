@@ -26,12 +26,22 @@
     <div v-if="updated">
       <p>La fiche a bien été mise à jour</p>
     </div>
-    <div v-if="delConfirmationOpened" class.prevent="confirmation-container">
-      <p>Voulez-vous vraiment supprimer cette fiche ?</p>
-      <button type="button" @click.prevent="delConfirmationOpened = false">
-        Non
-      </button>
-      <button type="button" @click.prevent="deleteCustomer">Oui</button>
+    <div v-if="delConfirmationOpened" class="confirmation-container">
+      <div class="confirmation-box">
+        <p>Voulez-vous vraiment supprimer cette fiche ?</p>
+        <div class="confirmation-btns">
+          <button type="button" @click.prevent="delConfirmationOpened = false">
+            Non
+          </button>
+          <button
+            type="button"
+            class="error-btn"
+            @click.prevent="deleteCustomer"
+          >
+            Oui
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -140,6 +150,42 @@ export default {
 <style scoped>
 .update-buttons {
   width: 265px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.confirmation-container {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  width: 100%;
+  height: 100vh;
+}
+
+.confirmation-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 150px;
+  width: 300px;
+  background-color: #fff;
+  border: 1px solid #d9534f;
+  border-radius: 8px;
+  padding: 25px;
+}
+
+.confirmation-box p {
+  text-align: center;
+  font-size: 1.2em;
+  font-weight: 600;
+  margin: 0;
+}
+
+.confirmation-btns {
   display: flex;
   justify-content: space-between;
 }

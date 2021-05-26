@@ -73,10 +73,6 @@ button:hover {
   color: #fff;
 }
 
-.error-btn {
-  border: 2px solid #d9534f;
-}
-
 .error {
   color: #d9534f;
   height: 0;
@@ -84,6 +80,7 @@ button:hover {
 }
 
 .error-btn {
+  border: 2px solid #d9534f;
   color: #d9534f;
   cursor: default;
 }
