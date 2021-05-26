@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="app">
     <Navbar />
     <Nuxt />
   </div>
@@ -17,21 +17,35 @@ export default {
 
 <style>
 html {
-  font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI',
-    Roboto, 'Helvetica Neue', Arial, sans-serif;
-  font-size: 16px;
-  word-spacing: 1px;
-  -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
-  -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
-  box-sizing: border-box;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
+body {
   margin: 0;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+#app {
+  box-sizing: border-box;
+  width: 900px;
+  padding: 0 20px;
+  margin: 0 auto;
+}
+
+a {
+  color: #39b982;
+  font-weight: 600;
+  background-color: transparent;
+  text-decoration: none;
+}
+
+h1 {
+  color: #39b982;
+  font-weight: 800;
+  text-align: center;
 }
 </style>

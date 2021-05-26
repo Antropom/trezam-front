@@ -25,3 +25,12 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+.container {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  justify-content: center;
+}
+</style>
