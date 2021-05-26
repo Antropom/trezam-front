@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="flex-col">
     <h1>Création d'une fiche client</h1>
     <BaseInput
       v-for="(customerField, name, index) in customerFields"
