@@ -25,8 +25,6 @@ html {
 body {
   margin: 0;
   font-family: 'Open Sans', sans-serif;
-  font-size: 16px;
-  color: #103145;
   line-height: 1.5;
 }
 
@@ -38,7 +36,7 @@ body {
 }
 
 a {
-  color: #39b982;
+  color: #dc8331;
   font-weight: 600;
   background-color: transparent;
   text-decoration: none;
@@ -49,7 +47,7 @@ a:hover {
 }
 
 h1 {
-  color: #39b982;
+  color: #dc8331;
   font-weight: 800;
   text-align: center;
 }
@@ -66,14 +64,14 @@ button {
   font-size: 1em;
   font-weight: 600;
   background-color: #fff;
-  border: 2px solid #39b982;
+  border: 2px solid #7c936b;
   border-radius: 10px;
   margin: 10px 0;
   cursor: pointer;
 }
 
 button:hover {
-  background-color: #39b982;
+  background-color: #7c936b;
   color: #fff;
 }
 
@@ -85,7 +83,7 @@ button:hover {
 
 .error-btn {
   border: 2px solid #d9534f;
-  color: #103145;
+  color: #000;
   cursor: default;
 }
 

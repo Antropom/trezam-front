@@ -62,7 +62,7 @@ export default {
 input {
   width: 250px;
   height: 50px;
-  border: 2px solid #39b982;
+  border: 2px solid #7c936b;
   border-radius: 10px;
   font-size: 1em;
   margin: 10px;

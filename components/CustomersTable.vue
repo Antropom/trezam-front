@@ -47,12 +47,13 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
   width: 100%;
-  border: 2px solid #39b982;
+  border: 2px solid #dc8331;
   border-radius: 10px;
 }
 
 thead {
-  background-color: #39b982;
+  background-color: #dc8331;
+  color: #353531;
 }
 
 td,
@@ -62,6 +63,11 @@ th {
 }
 
 tbody tr:nth-child(2n) {
-  background-color: #eee;
+  background-color: #b0bea6;
+  color: #353531;
+}
+
+tbody tr:nth-child(2n) a {
+  color: #353531;
 }
 </style>

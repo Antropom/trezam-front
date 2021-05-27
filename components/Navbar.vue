@@ -13,7 +13,7 @@
   font-family: 'Montserrat', sans-serif;
   font-weight: 700;
   font-size: 1.5em;
-  color: #39b982;
+  color: #dc8331;
   text-decoration: none;
 }
 
@@ -25,6 +25,6 @@
 }
 
 nav > .nuxt-link-exact-active {
-  color: #a88aa3;
+  color: #7c936b;
 }
 </style>

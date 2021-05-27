@@ -219,7 +219,7 @@ export default {
   left: -50%;
   width: 265px;
   padding: 1px;
-  background-color: #39b982;
+  background-color: #dc8331;
   border-radius: 10px;
   color: #fff;
   font-size: 1.1em;
