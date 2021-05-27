@@ -1,17 +1,19 @@
 <template>
   <div class="flex-col">
     <h1>Création d'une fiche client</h1>
-    <BaseInput
-      v-for="(customerField, name, index) in customerFields"
-      :key="index"
-      :field-name="name"
-      :placeholder="customerField.placeholder"
-      :error-message="customerField.errorMessage"
-      :error="
-        $v.customer[name].$dirty && $v.customer[name].$invalid ? true : false
-      "
-    />
-    <button type="button" @click.prevent="createCustomer">Créer</button>
+    <form class="flex-col" @submit.prevent="createCustomer">
+      <BaseInput
+        v-for="(customerField, name, index) in customerFields"
+        :key="index"
+        :field-name="name"
+        :placeholder="customerField.placeholder"
+        :error-message="customerField.errorMessage"
+        :error="
+          $v.customer[name].$dirty && $v.customer[name].$invalid ? true : false
+        "
+      />
+      <button type="submit">Créer</button>
+    </form>
   </div>
 </template>
 

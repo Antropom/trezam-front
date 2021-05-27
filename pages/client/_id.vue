@@ -6,7 +6,7 @@
 
   <div v-else>
     <h1>Modifier la fiche client</h1>
-    <div class="flex-col">
+    <form class="flex-col" @submit.prevent="updateCustomer">
       <BaseInput
         v-for="(customerField, name, index) in customerFields"
         :key="index"
@@ -18,7 +18,7 @@
         "
       />
       <div class="update-buttons">
-        <button type="button" @click="updateCustomer">Modifier</button>
+        <button type="submit">Modifier</button>
         <button
           class="error-btn"
           type="button"
@@ -27,7 +27,7 @@
           Supprimer
         </button>
       </div>
-    </div>
+    </form>
 
     <!-- Delete confirmation modal -->
     <div
@@ -232,7 +232,7 @@ export default {
   left: -50%;
   width: 265px;
   padding: 1px;
-  background-color: #dc8331;
+  background-color: #7c936b;
   border-radius: 10px;
   color: #fff;
   font-size: 1.1em;
