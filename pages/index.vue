@@ -14,6 +14,7 @@ export default {
     CustomersTable,
   },
 
+  // Fetch all customers from the DB
   async fetch() {
     await this.$store.dispatch('customers/fetchAllCustomers')
   },

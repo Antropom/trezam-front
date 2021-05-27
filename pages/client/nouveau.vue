@@ -3,7 +3,7 @@
     <h1>Création d'une fiche client</h1>
     <BaseInput
       v-for="(customerField, name, index) in customerFields"
-      :key="index + name"
+      :key="index"
       :field-name="name"
       :placeholder="customerField.placeholder"
       :error-message="customerField.errorMessage"
@@ -27,6 +27,7 @@ const dateValidator = helpers.regex(
   'dateValidator',
   /^(?:(?:31(\/|-|\.)(?:0?[13578]|1[02]))\1|(?:(?:29|30)(\/|-|\.)(?:0?[13-9]|1[0-2])\2))(?:(?:1[6-9]|[2-9]\d)?\d{2})$|^(?:29(\/|-|\.)0?2\3(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\d|2[0-8])(\/|-|\.)(?:(?:0?[1-9])|(?:1[0-2]))\4(?:(?:1[6-9]|[2-9]\d)?\d{2})$/
 )
+
 // Name validator (only alpha characters including accents)
 const alpha = helpers.regex('alpha', /^[a-zA-ZÀ-ž\s]*$/)
 
@@ -54,6 +55,7 @@ export default {
     }),
   },
 
+  // Clean currentCustomer in the store
   mounted() {
     this.$store.commit('customers/SET_CURRENT_CUSTOMER', {
       firstName: '',
@@ -66,7 +68,9 @@ export default {
 
   methods: {
     async createCustomer() {
+      // Makes all fields "dirty" so validation is enabled
       this.$v.$touch()
+
       if (!this.$v.$invalid) {
         const datas = { ...this.customer }
         datas.birthdate = datas.birthdate.split('/').reverse().join('-')
@@ -78,6 +82,7 @@ export default {
     },
   },
 
+  // Fields validation
   validations: {
     customer: {
       firstName: {

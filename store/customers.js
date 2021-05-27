@@ -1,8 +1,12 @@
 import ApiService from '@/services/apiService'
 
 export const state = () => ({
+  // All the customers from the DB
   customersList: [],
+
   currentCustomer: {},
+
+  //  Differents fields names and props used to generate the form
   customerFields: {
     firstName: {
       errorMessage: 'Veuillez saisir un prénom',
@@ -57,6 +61,7 @@ export const actions = {
         throw new Error(error)
       })
 
+    // Formating birthdate to it can be read
     res.birthdate = Intl.DateTimeFormat('fr-FR').format(new Date(res.birthdate))
     commit('SET_CURRENT_CUSTOMER', res)
   },

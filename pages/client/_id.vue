@@ -28,6 +28,8 @@
         </button>
       </div>
     </div>
+
+    <!-- Delete confirmation modal -->
     <div
       v-if="delConfirmationOpened"
       class="confirmation-container"
@@ -45,6 +47,8 @@
         </div>
       </div>
     </div>
+
+    <!-- Update notification -->
     <transition name="drop">
       <div v-if="updated" class="update-not">
         <div class="center-container">
@@ -110,7 +114,9 @@ export default {
 
   methods: {
     async updateCustomer() {
+      // Makes all fields "dirty" so validation is enabled
       this.$v.$touch()
+
       if (!this.$v.$invalid) {
         const datas = { ...this.customer }
         datas.birthdate = datas.birthdate.split('/').reverse().join('-')
@@ -132,6 +138,7 @@ export default {
     },
   },
 
+  // Fields validation
   validations: {
     customer: {
       firstName: {
