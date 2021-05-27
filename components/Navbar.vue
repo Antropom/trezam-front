@@ -8,6 +8,12 @@
   </div>
 </template>
 
+<script>
+export default {
+  name: 'Navbar',
+}
+</script>
+
 <style scoped>
 .brand {
   font-family: 'Montserrat', sans-serif;

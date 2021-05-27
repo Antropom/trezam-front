@@ -19,6 +19,8 @@
 import { required } from 'vuelidate/lib/validators'
 
 export default {
+  name: 'BaseInput',
+
   props: {
     fieldName: {
       type: String,

@@ -95,6 +95,12 @@ export default {
     )
   },
 
+  head() {
+    return {
+      title: `| ${this.customer.firstName} ${this.customer.lastName}`,
+    }
+  },
+
   computed: {
     ...mapState({
       customer: (state) => state.customers.currentCustomer,

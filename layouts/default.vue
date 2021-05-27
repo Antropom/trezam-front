@@ -12,6 +12,20 @@ export default {
   components: {
     Navbar,
   },
+
+  head() {
+    return {
+      titleTemplate: `Trezam, test technique %s`,
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content:
+            'Test technique pour Trezam, application de gestion de clients',
+        },
+      ],
+    }
+  },
 }
 </script>
 

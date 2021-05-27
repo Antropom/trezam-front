@@ -41,6 +41,12 @@ export default {
     BaseInput,
   },
 
+  head() {
+    return {
+      title: `| Nouveau client`,
+    }
+  },
+
   computed: {
     ...mapState({
       customer: (state) => state.customers.currentCustomer,

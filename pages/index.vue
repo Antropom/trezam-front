@@ -18,6 +18,12 @@ export default {
     await this.$store.dispatch('customers/fetchAllCustomers')
   },
 
+  head() {
+    return {
+      title: '',
+    }
+  },
+
   computed: {
     ...mapState({
       customers: (state) => state.customers.customersList,

@@ -29,6 +29,8 @@
 
 <script>
 export default {
+  name: 'CustomerTable',
+
   filters: {
     formatDate: (dateStr) =>
       Intl.DateTimeFormat('fr-FR').format(new Date(dateStr)),
