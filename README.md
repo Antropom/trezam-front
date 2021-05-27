@@ -1,20 +1,18 @@
-# trezam-front
+# Trezam, test tech
 
-## Build Setup
+## Prerequisite
 
-```bash
-# install dependencies
-$ npm install
+To run this app, need to have the back-end app installed.
+*trezam-back* => https://github.com/Antropom/trezam-back
 
-# serve with hot reload at localhost:3000
-$ npm run dev
+## Installation
 
-# build for production and launch server
-$ npm run build
-$ npm run start
+Clone the repo on you computer.
+Install all the dependencies => `npm install`.
+Copy and rename the *.env.sample* to *.env*, then fill the file with the back-end url.
 
-# generate static project
-$ npm run generate
-```
+## Starting
 
-For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
+To run the app in dev mode => `npm run dev`.
+
+To deploy the app => `npm run build`, then `npm start`.
