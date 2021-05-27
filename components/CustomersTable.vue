@@ -7,6 +7,7 @@
         <th>Date de naissance</th>
         <th>Numéro de téléphone</th>
         <th>e-mail</th>
+        <th></th>
       </tr>
     </thead>
     <tbody v-if="customers">
@@ -43,21 +44,24 @@ export default {
 
 <style scoped>
 table {
+  border-collapse: collapse;
+  border-spacing: 0;
   width: 100%;
+  border: 2px solid #39b982;
+  border-radius: 10px;
 }
 
-tr {
-  padding: 20px;
-  margin-bottom: 24px;
-  transition: all 0.2s linear;
+thead {
+  background-color: #39b982;
 }
 
-tr:hover {
-  transform: scale(1.01);
-  box-shadow: 0 3px 12px 0 rgba(0, 0, 0, 0.2), 0 1px 15px 0 rgba(0, 0, 0, 0.19);
-}
-
-td {
+td,
+th {
   text-align: center;
+  height: 2em;
+}
+
+tbody tr:nth-child(2n) {
+  background-color: #eee;
 }
 </style>

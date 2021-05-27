@@ -49,14 +49,14 @@ export const actions = {
   },
 
   async fetchCurrentCustomer({ commit }, id) {
-    const res = await ApiService.getOne(id).then(
-      (response) => {
+    const res = await ApiService.getOne(id)
+      .then((response) => {
         return response.data.result
-      },
-      (error) => {
+      })
+      .catch((error) => {
         throw new Error(error)
-      }
-    )
+      })
+
     res.birthdate = Intl.DateTimeFormat('fr-FR').format(new Date(res.birthdate))
     commit('SET_CURRENT_CUSTOMER', res)
   },

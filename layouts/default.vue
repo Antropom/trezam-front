@@ -44,6 +44,10 @@ a {
   text-decoration: none;
 }
 
+a:hover {
+  text-decoration: underline;
+}
+
 h1 {
   color: #39b982;
   font-weight: 800;
@@ -81,7 +85,7 @@ button:hover {
 
 .error-btn {
   border: 2px solid #d9534f;
-  color: #d9534f;
+  color: #103145;
   cursor: default;
 }
 
