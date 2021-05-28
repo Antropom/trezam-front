@@ -15,7 +15,7 @@ export default {
 
   head() {
     return {
-      titleTemplate: `Trezam, test technique %s`,
+      titleTemplate: `%s Trezam, test technique`,
       meta: [
         {
           hid: 'description',

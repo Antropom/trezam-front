@@ -101,7 +101,7 @@ export default {
 
   head() {
     return {
-      title: `| ${this.customer.firstName} ${this.customer.lastName}`,
+      title: `${this.customer.firstName} ${this.customer.lastName} |`,
     }
   },
 
@@ -123,7 +123,7 @@ export default {
         const res = await ApiService.update(this.$route.params.id, datas).then(
           (response) => response
         )
-        if (res.status === 201) {
+        if (res.status === 204) {
           this.updated = true
           setInterval(() => (this.updated = false), 3000)
         }

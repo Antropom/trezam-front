@@ -46,7 +46,7 @@ export default {
 
   head() {
     return {
-      title: `| Nouveau client`,
+      title: 'Nouveau client |',
     }
   },
 
